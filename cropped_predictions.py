@@ -11,29 +11,10 @@ from pathlib import Path
 
 """Image processing part"""
 
-# TODO read from a file?
-skeleton = [
-    ("botBeak", "topBeak"),
-    ("topBeak", "topHead"),
-    ("topHead", "rightEye"),
-    ("topHead", "leftEye"),
-    ("topHead", "backHead"),
-    ("backHead", "centerBack"),
-    ("centerBack", "leftWing"),
-    ("centerBack", "rightWing"),
-    ("centerBack", "baseTail"),
-    ("baseTail", "tipTail"),
-    ("centerBack", "leftAnkle"),
-    ("centerBack", "rightAnkle"),
-    ("centerBack", "centerChes"),
-    ("centerBack", "leftNeck"),
-    ("centerBack", "rightNeck"),
-    ("leftAnkle", "leftFoot"),
-    ("rightAnkle", "rightFoot"),
-]
+
 
 def annotate_image_with_predictions(
-    img, predictions, likelihood_threshold, skeleton_color
+    img, predictions, likelihood_threshold, skeleton_color, skeleton
 ):
     """
     Annotates an image with dots at specific points.
@@ -140,14 +121,14 @@ class Dataset:
 
         abs_img_path = Path(dataset.data_dir) / img_path
         red_img = Image.open(abs_img_path)
-        annotate_image_with_predictions(red_img, labels, 0.9, "#1E90FF")
-        annotate_image_with_predictions(red_img, red_preds, 0.9, "#FF4500")
+        annotate_image_with_predictions(red_img, labels, 0.9, "#1E90FF", dataset.skeleton)
+        annotate_image_with_predictions(red_img, red_preds, 0.9, "#FF4500", dataset.skeleton)
         red_img = draw_bbox(red_img, bbox)
 
 
         green_img = Image.open(abs_img_path)
-        annotate_image_with_predictions(green_img, labels, 0.9, "#1E90FF")
-        annotate_image_with_predictions(green_img, green_preds, 0.9, "#ADFF2F")
+        annotate_image_with_predictions(green_img, labels, 0.9, "#1E90FF", dataset.skeleton)
+        annotate_image_with_predictions(green_img, green_preds, 0.9, "#ADFF2F", dataset.skeleton)
         green_img = draw_bbox(green_img, bbox)
 
         return (red_img, green_img)

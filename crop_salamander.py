@@ -5,23 +5,25 @@ from pathlib import Path
 
 # TODO read from a file?
 skeleton = [
-    ("botBeak", "topBeak"),
-    ("topBeak", "topHead"),
-    ("topHead", "rightEye"),
-    ("topHead", "leftEye"),
-    ("topHead", "backHead"),
-    ("backHead", "centerBack"),
-    ("centerBack", "leftWing"),
-    ("centerBack", "rightWing"),
-    ("centerBack", "baseTail"),
-    ("baseTail", "tipTail"),
-    ("centerBack", "leftAnkle"),
-    ("centerBack", "rightAnkle"),
-    ("centerBack", "centerChes"),
-    ("centerBack", "leftNeck"),
-    ("centerBack", "rightNeck"),
-    ("leftAnkle", "leftFoot"),
-    ("rightAnkle", "rightFoot"),
+    ("nose", "neck"),
+    ("lhead", "neck"),
+    ("rhead", "neck"),
+    ("neck", "spine1"),
+    ("spine2", "spine1"),
+    ("spine2", "spine3"),
+    ("tailbase", "spine3"),
+    ("tailbase", "tail1"),
+    ("tail2", "tail1"),
+    ("tail2", "tail3"),
+    ("tailtip", "tail3"),
+    ("tailbase", "larm"),
+    ("tailbase", "rarm"),
+    ("lelbow", "larm"),
+    ("relbow", "rarm"),
+    ("tailbase", "rknee"),
+    ("tailbase", "lknee"),
+    ("rfoot", "rknee"),
+    ("lfoot", "lknee"),
 ]
 
 lp_dir = Path("/home/ks3582/synced/lightning-pose")
@@ -30,32 +32,32 @@ outputs_dir = Path("/home/ks3582/synced/outputs/chickadee/cropzoom")
 
 ind = cp.Dataset()
 ind.data_dir = Path(data_dir)
-ind.labels_file = lp_dir / "CollectedData_merged.csv"
+ind.labels_file = data_dir / "CollectedData.csv"
 ind.single_preds_file = (
     outputs_dir
-    / "pose_supervised_2/image_preds/cropped_CollectedData_merged.csv/remapped_predictions.csv"
+    / "pose_supervised_2/image_preds/cropped_CollectedData.csv/remapped_predictions.csv"
 )
 ind.pose_preds_file = (
     outputs_dir
-    / "pose_ctx_2/image_preds/cropped_CollectedData_merged.csv/remapped_predictions.csv"
+    / "pose_ctx_2/image_preds/cropped_CollectedData.csv/remapped_predictions.csv"
 )
-ind.bbox_file = outputs_dir / "detector_0/image_preds/CollectedData_merged.csv/bbox.csv"
+ind.bbox_file = outputs_dir / "detector_0/image_preds/CollectedData.csv/bbox.csv"
 ind.read_files()
 ind.skeleton = skeleton
 
 ood = cp.Dataset()
 ood.data_dir = Path(data_dir)
-ood.labels_file = lp_dir / "CollectedData_merged_new.csv"
+ood.labels_file = data_dir / "CollectedData_new.csv"
 ood.single_preds_file = (
     outputs_dir
-    / "pose_supervised_2/image_preds/cropped_CollectedData_merged_new.csv/remapped_predictions.csv"
+    / "pose_supervised_2/image_preds/cropped_CollectedData_new.csv/remapped_predictions.csv"
 )
 ood.pose_preds_file = (
     outputs_dir
-    / "pose_ctx_2/image_preds/cropped_CollectedData_merged_new.csv/remapped_predictions.csv"
+    / "pose_ctx_2/image_preds/cropped_CollectedData_new.csv/remapped_predictions.csv"
 )
 ood.bbox_file = (
-    outputs_dir / "detector_0/image_preds/CollectedData_merged_new.csv/bbox.csv"
+    outputs_dir / "detector_0/image_preds/CollectedData_new.csv/bbox.csv"
 )
 ood.read_files()
 ood.skeleton = skeleton
