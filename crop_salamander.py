@@ -16,8 +16,8 @@ skeleton = [
     ("tail2", "tail1"),
     ("tail2", "tail3"),
     ("tailtip", "tail3"),
-    ("tailbase", "larm"),
-    ("tailbase", "rarm"),
+    ("spine1", "larm"),
+    ("spine1", "rarm"),
     ("lelbow", "larm"),
     ("relbow", "rarm"),
     ("tailbase", "rknee"),
@@ -26,20 +26,19 @@ skeleton = [
     ("lfoot", "lknee"),
 ]
 
-lp_dir = Path("/home/ks3582/synced/lightning-pose")
-data_dir = lp_dir / "data" / "chickadee"
-outputs_dir = Path("/home/ks3582/synced/outputs/chickadee/cropzoom")
+data_dir = Path("/home/ks3582/salamander")
+outputs_dir = Path("/home/ks3582/synced/outputs/salamander/cropzoom")
 
 ind = cp.Dataset()
 ind.data_dir = Path(data_dir)
 ind.labels_file = data_dir / "CollectedData.csv"
 ind.single_preds_file = (
     outputs_dir
-    / "pose_supervised_2/image_preds/cropped_CollectedData.csv/remapped_predictions.csv"
+    / "detector_0/image_preds/CollectedData.csv/predictions.csv"
 )
 ind.pose_preds_file = (
     outputs_dir
-    / "pose_ctx_2/image_preds/cropped_CollectedData.csv/remapped_predictions.csv"
+    / "pose_supervised_0/image_preds/cropped_CollectedData.csv/remapped_predictions.csv"
 )
 ind.bbox_file = outputs_dir / "detector_0/image_preds/CollectedData.csv/bbox.csv"
 ind.read_files()
@@ -50,11 +49,11 @@ ood.data_dir = Path(data_dir)
 ood.labels_file = data_dir / "CollectedData_new.csv"
 ood.single_preds_file = (
     outputs_dir
-    / "pose_supervised_2/image_preds/cropped_CollectedData_new.csv/remapped_predictions.csv"
+    / "detector_0/image_preds/CollectedData_new.csv/predictions.csv"
 )
 ood.pose_preds_file = (
     outputs_dir
-    / "pose_ctx_2/image_preds/cropped_CollectedData_new.csv/remapped_predictions.csv"
+    / "pose_supervised_0/image_preds/cropped_CollectedData_new.csv/remapped_predictions.csv"
 )
 ood.bbox_file = (
     outputs_dir / "detector_0/image_preds/CollectedData_new.csv/bbox.csv"
@@ -62,7 +61,7 @@ ood.bbox_file = (
 ood.read_files()
 ood.skeleton = skeleton
 
-output_dir = Path("/home/ks3582/pose_vs_ctx_gallery/")
+output_dir = Path("/home/ks3582/pose_vs_ctx_gallery_salamander/")
 
 # Previews
 for img_path in tqdm(ind.single_preds_df.index):
